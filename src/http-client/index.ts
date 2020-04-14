@@ -41,9 +41,11 @@ abstract class HttpClient extends Dispatcher {
     }
 
     if (options.txnAuth && options.txnAuth.handleStep) {
-      if (res.redirected && examineForIGTxnAuth(res)) {
+      if (examineForIGTxnAuth(res)) {
+        debugger;
         txnAuthJSON = normalizeIGJSON(res);
       } else if (await examineForRESTTxnAuth(res)) {
+        debugger;
         txnAuthJSON = await normalizeRESTJSON(res);
       }
 

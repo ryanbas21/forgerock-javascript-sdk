@@ -39,9 +39,17 @@ export function buildTxnAuthOptions(
   return options;
 }
 
-export function examineForIGTxnAuth(res: Response): boolean {
+export async function examineForIGTxnAuth(res: Response): Promise<boolean> {
+  debugger;
   const type = res.headers.get('Content-Type') || '';
-  return type.includes('html') && res.url.includes('composite_advice');
+  const isHTML = type.includes('html');
+  let hasTxnAdvice = false;
+
+  if (isHTML) {
+    const text = await res.text();
+    hasTxnAdvice = text.includes('TransactionConditionAdvice');
+  }
+  return hasTxnAdvice;
 }
 
 export async function examineForRESTTxnAuth(res: Response): Promise<boolean> {

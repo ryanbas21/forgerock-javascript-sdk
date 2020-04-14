@@ -1,6 +1,7 @@
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
-import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
 import { createServer } from 'https';
 import { env } from 'process';
 import { authorizeApp } from './auth.app.mjs';
@@ -19,10 +20,18 @@ app.use(
     },
   }),
 );
+app.use(
+  helmet.frameguard({
+    action: 'ALLOW-FROM',
+    domain: 'https://forgerock-sdk-samples.com:3002',
+  }),
+);
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path}`);
   next();
 });
+
+app.get('/hello', (req, res) => res.send('Greetings'));
 
 if (env.LIVE === 'true') {
   authorizeApp({

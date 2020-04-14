@@ -1,45 +1,41 @@
 {
-  "indentifier": "714524572-2799534390-3707617532",
+  "identifier": "214692405-42010332-2864733920",
   "metadata": {
     "hardware": {
-      "cpuClass": null,
-      "deviceMemory": 8,
-      "hardwareConcurrency": 16,
+      "cpuClass": "x86",
+      "deviceMemory": null,
+      "hardwareConcurrency": null,
       "maxTouchPoints": 0,
       "oscpu": null,
       "display": {
-        "width": 1080,
-        "height": 1920,
+        "width": 1024,
+        "height": 768,
         "pixelDepth": 24,
-        "angle": 270
+        "angle": ""
       }
     },
     "browser": {
-      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36 Edg/80.0.361.111",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; rv:11.0) like Gecko",
       "appName": "Netscape",
       "appCodeName": "Mozilla",
-      "appVersion": "5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36 Edg/80.0.361.111",
-      "appMinorVersion": null,
+      "appVersion": "5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; rv:11.0) like Gecko",
+      "appMinorVersion": "0",
       "buildID": null,
       "product": "Gecko",
-      "productSub": "20030107",
-      "vendor": "Google Inc.",
-      "vendorSub": "",
-      "browserLanguage": null,
-      "plugins": "internal-pdf-viewer;mhjfbmdgcfjbbpaeojofohoefgiehjai;internal-nacl-plugin;"
+      "productSub": null,
+      "vendor": "",
+      "vendorSub": null,
+      "browserLanguage": "en-US",
+      "plugins": "Flash.ocx;npctrl.dll;"
     },
     "platform": {
-      "deviceName": "Mac (Browser)",
       "language": "en-US",
-      "platform": "MacIntel",
-      "userLanguage": null,
-      "systemLanguage": null,
-      "fonts": "cursive;monospace;sans-serif;fantasy;Arial;Arial Black;Arial Narrow;Arial Rounded MT Bold;Comic Sans MS;Courier;Courier New;Georgia;Impact;Papyrus;Tahoma;Trebuchet MS;Verdana;",
-      "timezone": 300
+      "platform": "Win32",
+      "userLanguage": "en-US",
+      "systemLanguage": "en-US",
+      "deviceName": "Windows (Browser)",
+      "fonts": "cursive;monospace;sans-serif;fantasy;Arial;Arial Black;Comic Sans MS;Courier;Courier New;Georgia;Impact;Lucida Console;Tahoma;Trebuchet MS;Verdana;",
+      "timezone": 420
     }
-  },
-  "location": {
-    "latitude": 30.49843,
-    "longitude": -97.639371
   }
 }

@@ -54,9 +54,9 @@ export default function(app) {
       // We just need property existence to ensure profile is generated
       // We don't care about values since they are unique per browser
       if (
-        location &&
-        location.latitude &&
-        location.longitude &&
+        // location &&
+        // location.latitude &&
+        // location.longitude &&
         metadata.browser &&
         metadata.browser.userAgent &&
         metadata.platform &&

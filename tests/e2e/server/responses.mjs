@@ -91,7 +91,7 @@ export const requestDeviceProfile = {
         },
         {
           name: 'location',
-          value: true,
+          value: false,
         },
         {
           name: 'message',

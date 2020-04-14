@@ -145,7 +145,6 @@ class FRDevice extends Collector {
 
     if (!context) {
       console.warn('Cannot collect font data. Browser does not support 2d canvas context');
-      canvas.remove();
       return '';
     }
     const text = 'abcdefghi0123456789';
@@ -161,8 +160,6 @@ class FRDevice extends Collector {
       }
       return prev;
     }, '');
-
-    canvas.remove();
 
     return installedFonts;
   }
