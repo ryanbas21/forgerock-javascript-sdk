@@ -1,5 +1,5 @@
  [build.environment]
-   NPM_FLAGS="--version"
+   NPM_FLAGS=""
    TERM = "xterm"
  [build]
   command = "npx nx run autoscript-apps:build"
