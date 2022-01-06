@@ -83,7 +83,7 @@ module.exports = (config) => {
     output: {
       library: 'forgerock',
       libraryTarget: 'umd',
-      path: path.resolve(__dirname, './bundles'),
+      path: path.resolve(__dirname, '../../dist/e2e/autoscript-apps'),
       publicPath: 'https://sdkapp.example.com:8443/',
       umdNamedDefine: true,
     },

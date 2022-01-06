@@ -12,6 +12,7 @@ env:
 jobs:
   pr:
     runs-on: macos-latest
+    environment: preview
     if: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v2
@@ -46,9 +47,11 @@ jobs:
       - run: npx nx affected --target=lint --parallel --max-parallel=3
       - run: npx nx affected --target=test --parallel --max-parallel=2
       - run: npx nx affected --target=test --configuration=integration --parallel --max-parallel=2
-      - run: npx nx affected --target=deploy
+        env:
+          NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
       - run: npx nx-cloud stop-all-agents
 
+      # - run: NX_CLOUD_DISTRIBUTED_EXECUTION=false  npx nx affected --target=deploy
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         if: always()
@@ -70,7 +73,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
-          node-version: '16.13.1'
+          npm: '7'
           cache: 'npm'
       - run: npm ci
         env:
