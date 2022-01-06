@@ -1,6 +1,6 @@
  [build.environment]
  [build]
-  command = "npx nx run autoscript-apps:build"
+  command = "npm install; npx nx run autoscript-apps:build"
   publish = "../../dist/e2e/autoscript-apps/"
 
 [dev]
