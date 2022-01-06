@@ -42,7 +42,7 @@
       "executor": "@netlify-builder/deploy:deploy",
       "options": {
         "outputPath": "dist/e2e/autoscript-apps",
-        "siteId": "0941a32f-bb56-41cc-a50e-1d3cee0bc9b1"
+        "siteId": "63eb8cff-4524-46c2-ab6e-66fe42d7f1f8"
       }
     }
   }

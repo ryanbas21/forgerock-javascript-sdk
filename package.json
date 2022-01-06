@@ -49,6 +49,7 @@
   },
   "homepage": "https://github.com/ForgeRock/forgerock-javascript-sdk#readme",
   "devDependencies": {
+    "@netlify-builder/deploy": "^4.1.2",
     "@nrwl/angular": "^13.3.11",
     "@nrwl/cli": "^13.3.9",
     "@nrwl/eslint-plugin-nx": "^13.3.9",
