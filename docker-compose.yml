@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  autoscript-apps:
+    image: autoscript-apps
+    build: .
+    ports:
+      - '8080:3334'
+  mock-api:
+    image: mock-api
+    build: .
+    ports:
+      - '8081:3333'
