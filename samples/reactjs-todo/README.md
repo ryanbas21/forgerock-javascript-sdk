@@ -20,7 +20,7 @@ Once you have the 5 requirements above met, we can build the project.
 
 #### Configure CORS
 
-1. Allowed origins: `https://react.example.com:8443`
+1. Allowed origins: `http://localhost:8443`
 2. Allowed methods: `GET` `POST`
 3. Allowed headers: `Content-Type` `X-Requested-With` `Accept-API-Version` `Authorization`
 4. Allow credentials: enable
@@ -55,8 +55,8 @@ Example with annotations:
 
 ```text
 AM_URL=<<<URL to your AM instance>>>
-APP_URL=https://react.example.com:8443
-API_URL=https://api.example.com:9443
+APP_URL=http://localhost:8443
+API_URL=https://localhost:9443
 DEBUGGER_OFF=false
 JOURNEY_LOGIN=Login
 JOURNEY_REGISTER=Registration
@@ -77,19 +77,6 @@ npm install
 npx nx run reactjs-todo:build:dev
 ```
 
-### Update Your `/etc/hosts` File
-
-Now you'll need to update your `hosts` (`/etc/hosts` if on a Mac) to allow for domain aliases:
-
-```sh
-sudo vim /etc/hosts
-```
-
-```text
-# hosts file aliases
-127.0.0.1 react.example.com api.example.com
-```
-
 ### Run the Servers
 
 Now, run the below commands to start the processes needed for building the application and running the servers for both client and API server:
@@ -105,11 +92,11 @@ npx nx run reactjs-todo:serve
 npx nx run todo-api:serve
 ```
 
-Now, you should be able to visit `https://react.example.com:8443`, which is your web app or client (the Relying Party in OAuth terms). This client will make requests to your AM instance, (the Authorization Server in OAuth terms), which will be running on whatever domain you set, and `https://api.example.com:9443` as the REST API for your todos (the Resource Server).
+Now, you should be able to visit `http://localhost:8443`, which is your web app or client (the Relying Party in OAuth terms). This client will make requests to your AM instance, (the Authorization Server in OAuth terms), which will be running on whatever domain you set, and `http://localhost:9443` as the REST API for your todos (the Resource Server).
 
 ### Accept Cert Exceptions
 
-You will likely have to accept the security certificate exceptions for both your React app and the Node.js server. To accept the cert form the Node.js server, you can visit `https://api.example.com:9443/healthcheck` in your browser. Once you receive "OK", your Node.js server is running on the correct domain and port, and the cert is accepted.
+You will likely have to accept the security certificate exceptions for both your React app and the Node.js server. To accept the cert form the Node.js server, you can visit `http://localhost:9443/healthcheck` in your browser. Once you receive "OK", your Node.js server is running on the correct domain and port, and the cert is accepted.
 
 ## Learn About Integration Touchpoints
 
