@@ -9,17 +9,8 @@
  */
 
 import request from 'superagent';
-import { readFileSync } from 'fs';
-import * as path from 'path';
 
 import { AM_URL, CONFIDENTIAL_CLIENT, REALM_PATH } from './constants.js';
-
-const SEC_CERT = readFileSync(
-  path.resolve(__dirname, '../../../node_modules/lws/ssl/lws-cert.pem'),
-);
-const SEC_KEY = readFileSync(
-  path.resolve(__dirname, '../../../node_modules/lws/ssl/private-key.pem'),
-);
 /**
  * @function auth - Auth middleware for checking the validity of user's auth
  * @param {Object} req - Node.js' req object
@@ -35,13 +26,12 @@ export async function auth(req, res, next) {
       const [_, token] = req.headers.authorization.split(' ');
       response = await request
         .post(`${AM_URL}oauth2/realms/root/realms/${REALM_PATH}/introspect`)
-        .key(SEC_KEY)
-        .cert(SEC_CERT)
         .set('Content-Type', 'application/json')
         .set('Authorization', `Basic ${CONFIDENTIAL_CLIENT}`)
         .query({ token });
     }
   } catch (err) {
+    console.log(JSON.stringify(err));
     console.log(`Error: auth middleware: ${err}`);
     response = {
       body: {},

@@ -49,7 +49,7 @@ routes(app);
  * Attach application to port and listen for requests
  */
 if (!AM_URL) {
-  createServer(() => {}).listen(PORT);
+  createServer(() => null).listen(PORT);
 
   console.error(
     'ERROR: Missing .env value. Ensure you have an .env file within the dir of this sample app.',
