@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 
 module.exports = (config) => {
+  console.log('variables on process', process.env);
+
   const AM_URL = process.env.AM_URL;
   const APP_URL = process.env.APP_URL;
   const API_URL = process.env.API_URL;
@@ -10,6 +12,7 @@ module.exports = (config) => {
   const JOURNEY_REGISTER = process.env.JOURNEY_REGISTER;
   const WEB_OAUTH_CLIENT = process.env.WEB_OAUTH_CLIENT;
   const REALM_PATH = process.env.REALM_PATH;
+
   config.plugins.push(
     new webpack.DefinePlugin({
       // Inject all the environment variable into the Webpack build
@@ -24,6 +27,7 @@ module.exports = (config) => {
       'process.env.REALM_PATH': JSON.stringify(REALM_PATH),
     }),
   );
+
   return {
     ...config,
     devtool: 'source-map',

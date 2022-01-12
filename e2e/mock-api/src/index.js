@@ -1,7 +1,7 @@
 /*
  * @forgerock/javascript-sdk
  *
- * index.mjs
+ * index
  *
  * Copyright (c) 2020 ForgeRock. All rights reserved.
  * This software may be modified and distributed under the terms
@@ -11,14 +11,15 @@
 import cors from 'cors';
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import { createServer } from 'https';
+// import { createServer } from 'https';
+import { createServer } from 'http';
 import { env } from 'process';
 import path from 'path';
-import { authorizeApp } from './app/app.auth.mjs';
-import { key, cert } from './app/app.certs.mjs';
-import { MOCK_PORT } from './app/env.config.copy.mjs';
-import authRoutes from './app/routes.auth.mjs';
-import resourceRoutes from './app/routes.resource.mjs';
+import { authorizeApp } from './app/app.auth';
+// import { key, cert } from './app/app.certs';
+import { MOCK_PORT } from './app/env.config';
+import authRoutes from './app/routes.auth';
+import resourceRoutes from './app/routes.resource';
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
@@ -48,8 +49,8 @@ if (env.NODE_ENV === 'LIVE') {
 
 authRoutes(app);
 resourceRoutes(app);
-
+app.get('/', (req, res) => res.status(200).send('ok'));
 env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
-createServer({ key, cert }, app).listen(MOCK_PORT);
-
+// createServer({ key, cert }, app).listen(MOCK_PORT);
+createServer(app).listen(MOCK_PORT);
 console.log(`Listening to HTTPS on secure port: ${MOCK_PORT}`);

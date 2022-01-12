@@ -7,7 +7,6 @@
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
  */
-
 import cors from 'cors';
 import express from 'express';
 import cookieParser from 'cookie-parser';
@@ -49,10 +48,12 @@ routes(app);
  * Attach application to port and listen for requests
  */
 if (!AM_URL) {
+  console.log('before server', process.env);
   createServer(() => null).listen(PORT);
 
   console.error(
     'ERROR: Missing .env value. Ensure you have an .env file within the dir of this sample app.',
+    process.env,
   );
   console.error(
     'Ensure you have a .env file with appropriate values and the proper security certificate and key.',

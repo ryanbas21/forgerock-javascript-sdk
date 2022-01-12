@@ -8,6 +8,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
+console.log(process.env);
 export const AM_URL = process.env.AM_URL;
 export const APP_URL = process.env.APP_URL;
 export const API_URL = process.env.API_URL;

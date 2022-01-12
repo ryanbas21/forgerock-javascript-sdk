@@ -59,7 +59,7 @@ if (env.LIVE) {
 
 export const APP_PORT = ports.app;
 export const AM_PORT = amPort;
-export const MOCK_PORT = ports.mock;
+export const MOCK_PORT = process.env.PORT || ports.mock;
 
 export const AM_URL = `${amUrl}:${amPort}${paths.am}`;
 export const BASE_URL = `${origins.app}:${ports.app}`;

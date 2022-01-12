@@ -1,0 +1,9 @@
+name: reactjs-todo
+image: okteto/node:14
+command: bash
+sync:
+- .:/usr/src/app
+forward:
+- 9229:9229
+- 8080:80
+- 8081:80

@@ -1,7 +1,7 @@
 /*
  * @forgerock/javascript-sdk
  *
- * routes.resource.mjs
+ * routes.resource
  *
  * Copyright (c) 2020 ForgeRock. All rights reserved.
  * This software may be modified and distributed under the terms
@@ -10,12 +10,12 @@
 
 import { env } from 'process';
 import request from 'superagent';
-import { session } from './app.auth.mjs';
-import { key, cert } from './app.certs.mjs';
-import { AM_URL, AM_PORT, FORGEOPS, REALM_PATH } from './env.config.copy.mjs';
-import { authByTreeResponse, authByTxnResponse, createStepUpUrl } from './responses.mjs';
-import { baz } from './routes.auth.mjs';
-import wait from './wait.mjs';
+import { session } from './app.auth.js';
+import { key, cert } from './app.certs.js';
+import { AM_URL, AM_PORT, FORGEOPS, REALM_PATH } from './env.config.js';
+import { authByTreeResponse, authByTxnResponse, createStepUpUrl } from './responses.js';
+import { baz } from './routes.auth.js';
+import wait from './wait.js';
 
 async function authorization(req, res, next) {
   if (env.NODE_ENV === 'LIVE' && req.hostname !== FORGEOPS) {
