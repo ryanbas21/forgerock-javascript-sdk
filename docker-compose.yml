@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  mock-api:
+    image: mock-api
+    ports:
+      - '9443:9443'
+  # autoscript-apps:
+  #   image: autoscript-apps
+  #   environment:
+  #     - apiPath=http://api:9443
+  #   ports:
+  #     - '8443:8443'

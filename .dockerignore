@@ -1,0 +1,17 @@
+.git
+node_modules
+.devcontainer
+.cache
+.env
+.env.*
+.git
+.github
+.gitlab
+.gitlab-ci.yml
+.npmrc
+.prettierrc
+.vscode
+node_modules
+tmp
+tools
+!tools/scripts/entrypoints
