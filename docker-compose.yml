@@ -28,14 +28,15 @@ services:
       PORT: 8081
       AM_URL: $AM_URL
       APP_URL: $APP_URL
-      API_URL: $API_URL
+      API_URL: 'https://todo-api-ryanbas21.cloud.okteto.net'
       DEBUGGER_OFF: $DEBUGGER_OFF
       REALM_PATH: $REALM_PATH
       JOURNEY_LOGIN: $JOURNEY_LOGIN
       JOURNEY_REGISTER: $JOURNEY_REGISTER
-      DEVELOPMENT: $DEVELOPMENT
+      WEB_OAUTH_CLIENT: $WEB_OAUTH_CLIENT
       REST_OAUTH_CLIENT: $REST_OAUTH_CLIENT
       REST_OAUTH_SECRET: $REST_OAUTH_SECRET
+
     networks:
       - corp
     restart: on-failure
