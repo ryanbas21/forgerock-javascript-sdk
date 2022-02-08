@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 
 module.exports = (config) => {
-  console.log('variables on process', process.env);
+  console.log('variables on process', JSON.stringify(process.env));
 
   const AM_URL = process.env.AM_URL;
   const APP_URL = process.env.APP_URL;
