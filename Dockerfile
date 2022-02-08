@@ -15,4 +15,4 @@ RUN npm i -g nx
 COPY . /app/builder 
 RUN npm install
 
-RUN WEB_OAUTH_CLIENT=$WEB_OAUTH_CLIENT AM_URL=$AM_URL APP_URL=$APP_URL API_URL=$API_URL DEBUGGER_OFF=$DEBUGGER_OFF REALM_PATH=$REALM_PATH JOURNEY_REGISTER=$JOURNEY_REGISTER JOURNEY_LOGIN=$JOURNEY_LOGIN nx run-many --target=build --projects=reactjs-todo,todo-api --skipNxCache
+RUN nx run-many --target=build --projects=reactjs-todo,todo-api --skipNxCache

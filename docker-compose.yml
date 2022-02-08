@@ -3,7 +3,6 @@ version: '3.8'
 networks:
   corp:
     driver: bridge
-
 services:
   todo-api:
     container_name: todo-api
@@ -48,4 +47,6 @@ services:
       dockerfile: ./samples/reactjs-todo/Dockerfile
     ports:
       - 8443:8081
+    networks:
+      - corp
     restart: on-failure
