@@ -46,7 +46,7 @@
       "outputs": ["coverage/samples/reactjs-todo"],
       "options": {
         "jestConfig": "samples/reactjs-todo/jest.config.js",
-        "pasWithNoTests": true
+        "passWithNoTests": true
       },
       "configurations": {
         "integration": {}
