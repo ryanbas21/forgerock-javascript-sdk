@@ -11,14 +11,14 @@ services:
       context: ./
       dockerfile: ./Dockerfile
       args:
-        - AM_URL=$AM_URL
-        - APP_URL=$APP_URL
-        - API_URL='https://todo-api-ryanbas21.cloud.okteto.net'
-        - DEBUGGER_OFF=$DEBUGGER_OFF
-        - REALM_PATH=$REALM_PATH
-        - JOURNEY_LOGIN=$JOURNEY_LOGIN
-        - JOURNEY_REGISTER=$JOURNEY_REGISTER
-        - WEB_OAUTH_CLIENT=$WEB_OAUTH_CLIENT
+        AM_URL: $AM_URL
+        APP_URL: $APP_URL
+        API_URL: 'https://todo-api-ryanbas21.cloud.okteto.net'
+        DEBUGGER_OFF: $DEBUGGER_OFF
+        REALM_PATH: $REALM_PATH
+        JOURNEY_LOGIN: $JOURNEY_LOGIN
+        JOURNEY_REGISTER: $JOURNEY_REGISTER
+        WEB_OAUTH_CLIENT: $WEB_OAUTH_CLIENT
     command: node /app/builder/dist/samples/todo-api/main.js
     env_file:
       - ./samples/todo-api/.env
