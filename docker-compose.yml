@@ -8,13 +8,13 @@ services:
     command: node /app/builder/dist/e2e/mock-api/main.js
     ports:
       - 9443:9443
-  autoscript-apps:
-    container_name: autoscript-apps
-    build:
-      context: ./
-      dockerfile: ./e2e/autoscript-apps/Dockerfile
-    ports:
-      - 8082:8082
+        #autoscript-apps:
+        #  container_name: autoscript-apps
+        #  build:
+        #    context: ./
+        #    dockerfile: ./e2e/autoscript-apps/Dockerfile
+        #  ports:
+        #    - 8082:80
   todo-api:
     container_name: todo-api
     build:
