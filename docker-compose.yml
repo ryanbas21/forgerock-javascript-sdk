@@ -33,7 +33,7 @@ services:
       REALM_PATH: ${REALM_PATH:-alpha}
       JOURNEY_LOGIN: ${JOURNEY_LOGIN:-Login}
       JOURNEY_REGISTER: ${JOURNEY_REGISTER:-Register}
-      WEB_OAUTH_CLIENT: ${WEB_OAUTH_CLIENT:-WEB_OAUTH_CLIENT}
+      WEB_OAUTH_CLIENT: ${WEB_OAUTH_CLIENT:-example-react-app}
       REST_OAUTH_CLIENT: ${REST_OAUTH_CLIENT:-sample-server}
       REST_OAUTH_SECRET: ${REST_OAUTH_SECRET:-serversecret}
     restart: on-failure
@@ -52,7 +52,7 @@ services:
         REALM_PATH: ${REALM_PATH:-alpha}
         JOURNEY_LOGIN: ${JOURNEY_LOGIN:-Login}
         JOURNEY_REGISTER: ${JOURNEY_REGISTER:-Register}
-        WEB_OAUTH_CLIENT: ${WEB_OAUTH_CLIENT:-WEB_OAUTH_CLIENT}
+        WEB_OAUTH_CLIENT: ${WEB_OAUTH_CLIENT:-example-react-app}
         REST_OAUTH_CLIENT: ${REST_OAUTH_CLIENT:-sample-server}
         REST_OAUTH_SECRET: ${REST_OAUTH_SECRET:-serversecret}
     ports:
