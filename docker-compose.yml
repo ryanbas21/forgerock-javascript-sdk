@@ -5,31 +5,21 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    command: node /app/builder/dist/mock-api/main.js
+    command: node /app/builder/dist/e2e/mock-api/main.js
     ports:
-      - 9443:8081
+      - 9443:9443
   autoscript-apps:
     container_name: autoscript-apps
     build:
       context: ./
       dockerfile: ./e2e/autoscript-apps/Dockerfile
+    ports:
+      - 8082:8082
   todo-api:
     container_name: todo-api
     build:
       context: ./
       dockerfile: ./Dockerfile
-      # args:
-      #PORT: ${PORT:-8081}
-      #AM_URL: ${AM_URL:-https://openam-ryan-bas.forgeblocks.com/am}
-      #APP_URL: ${APP_URL:-http://reactjs-todo:8081}
-      #API_URL: ${API_URL:-http://todo-api:8081}
-      #DEBUGGER_OFF: ${DEBUGGER_OFF:-true}
-      #REALM_PATH: ${REALM_PATH:-alpha}
-      #JOURNEY_LOGIN: ${URNEY_LOGIN:-Login}
-      #JOURNEY_REGISTER: ${JOURNEY_REGISTER:-Register}
-      #WEB_OAUTH_CLIENT: ${WEB_OAUTH_CLIENT:-WEB_OAUTH_CLIENT}
-      #REST_OAUTH_CLIENT: ${REST_OAUTH_CLIENT:-sample-server}
-      #REST_OAUTH_SECRET: ${REST_OAUTH_SECRET:-serversecret}
 
     command: node /app/builder/dist/samples/todo-api/main.js
     ports:
@@ -56,7 +46,7 @@ services:
       args:
         PORT: 8081
         AM_URL: ${AM_URL:-https://openam-ryan-bas.forgeblocks.com/am}
-        APP_URL: ${APP_URL:-http://reactjs-todo:8081}
+        APP_URL: ${APP_URL:-http://reactjs-todo:8443}
         API_URL: ${API_URL:-http://todo-api:8081}
         DEBUGGER_OFF: ${DEBUGGER_OFF:-true}
         REALM_PATH: ${REALM_PATH:-alpha}
@@ -66,7 +56,7 @@ services:
         REST_OAUTH_CLIENT: ${REST_OAUTH_CLIENT:-sample-server}
         REST_OAUTH_SECRET: ${REST_OAUTH_SECRET:-serversecret}
     ports:
-      - 8443:8081
+      - 8443:80
     # environment:
     # PORT: 8081
     # AM_URL: ${AM_URL:-https://openam-ryan-bas.forgeblocks.com/am}

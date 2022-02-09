@@ -50,6 +50,7 @@ if (env.NODE_ENV === 'LIVE') {
 authRoutes(app);
 resourceRoutes(app);
 app.get('/', (req, res) => res.status(200).send('ok'));
+
 env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 // createServer({ key, cert }, app).listen(MOCK_PORT);
 createServer(app).listen(MOCK_PORT);

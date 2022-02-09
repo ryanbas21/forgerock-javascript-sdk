@@ -3,9 +3,9 @@ FROM node:lts as builder
 ARG WEB_OAUTH_CLIENT
 ENV WEB_OAUTH_CLIENT ${WEB_OAUTH_CLIENT:-"client"}
 ARG AM_URL
-ENV AM_URL ${AM_URL:-"someurl"}
+ENV AM_URL ${AM_URL:-"https://openam-ryan-bas.forgeblocks.com/am"}
 ARG APP_URL
-ENV APP_URL ${APP_URL:-"someurl-app"}
+ENV APP_URL ${APP_URL:-"http://reactjs-todo:8443"}
 ARG API_URL
 ENV API_URL ${API_URL:-"http://todo-api:8081"}
 ARG DEBUGGER_OFF
