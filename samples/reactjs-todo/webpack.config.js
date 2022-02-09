@@ -1,8 +1,6 @@
 const webpack = require('webpack');
 
 module.exports = (config) => {
-  console.log('variables on process', JSON.stringify(process.env));
-
   const AM_URL = process.env.AM_URL;
   const APP_URL = process.env.APP_URL;
   const API_URL = process.env.API_URL;
@@ -33,9 +31,9 @@ module.exports = (config) => {
       'process.env.REALM_PATH': JSON.stringify(REALM_PATH),
     }),
   );
-
-  return {
+  const conf = {
     ...config,
+    plugins: config.plugins.slice(1),
     devtool: 'source-map',
     devServer: {
       ...config.devServer,
@@ -53,4 +51,6 @@ module.exports = (config) => {
       port: 8443,
     },
   };
+  console.log(conf);
+  return conf;
 };
