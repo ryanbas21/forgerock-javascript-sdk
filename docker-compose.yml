@@ -41,6 +41,31 @@ services:
     build:
       context: ./
       dockerfile: ./samples/reactjs-todo/Dockerfile
+      args:
+        PORT: 8081
+        AM_URL: https://openam-ryan-bas.forgeblocks.com/am
+        APP_URL: http://reactjs-todo:8081
+        API_URL: http://todo-api:8081
+        DEBUGGER_OFF:
+        REALM_PATH: alpha
+        JOURNEY_LOGIN: Login
+        JOURNEY_REGISTER: Register
+        WEB_OAUTH_CLIENT: WEB_OAUTH_CLIENT
+        REST_OAUTH_CLIENT: sample-server
+        REST_OAUTH_SECRET: serversecret
     ports:
       - 8443:8081
+    environment:
+      PORT: 8081
+      AM_URL: https://openam-ryan-bas.forgeblocks.com/am
+      APP_URL: http://reactjs-todo:8081
+      API_URL: http://todo-api:8081
+      DEBUGGER_OFF:
+      REALM_PATH: alpha
+      JOURNEY_LOGIN: Login
+      JOURNEY_REGISTER: Register
+      WEB_OAUTH_CLIENT: WEB_OAUTH_CLIENT
+      REST_OAUTH_CLIENT: sample-server
+      REST_OAUTH_SECRET: serversecret
+
     restart: on-failure
