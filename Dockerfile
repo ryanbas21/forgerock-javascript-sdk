@@ -6,4 +6,4 @@ RUN npm i -g nx
 COPY . /app/builder 
 RUN npm install
 
-RUN nx run-many --target=build --projects=reactjs-todo,todo-api --parallel --skipNxCache
+RUN nx run-many --target=build --projects=reactjs-todo,todo-api,mock-api,autoscript-apps --parallel --skipNxCache

@@ -1,4 +1,5 @@
 deploy:
   - okteto build -t okteto.dev/base:${OKTETO_GIT_COMMIT} .
-  - okteto build -t okteto.dev/reactjs${OKTETO_GIT_COMMIT} -f ./samples/reactjs-todo/Dockerfile .
+  - okteto build -t okteto.dev/reactjs:${OKTETO_GIT_COMMIT} -f ./samples/reactjs-todo/Dockerfile .
+  - okteto build -t okteto.dev/autoscript-apps:${OKTETO_GIT_COMMIT} -f ./e2e/autoscript-apps/Dockerfile .
   - okteto stack deploy --build
