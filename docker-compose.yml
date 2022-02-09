@@ -6,6 +6,19 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        PORT: 8081
+        AM_URL: https://openam-ryan-bas.forgeblocks.com/am
+        APP_URL: http://reactjs-todo:8081
+        API_URL: http://todo-api:8081
+        DEBUGGER_OFF:
+        REALM_PATH: alpha
+        JOURNEY_LOGIN: Login
+        JOURNEY_REGISTER: Register
+        WEB_OAUTH_CLIENT: WEB_OAUTH_CLIENT
+        REST_OAUTH_CLIENT: sample-server
+        REST_OAUTH_SECRET: serversecret
+
     command: node /app/builder/dist/samples/todo-api/main.js
     ports:
       - 8081:8081
