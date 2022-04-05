@@ -90,7 +90,7 @@ export class AppComponent implements OnInit {
      ***************************************************************** */
     try {
       // Assume user is likely authenticated if there are tokens
-      let info = await UserManager.getCurrentUser();
+      const info = await UserManager.getCurrentUser();
       this.userService.isAuthenticated = true;
       this.userService.info = info;
     } catch (err) {

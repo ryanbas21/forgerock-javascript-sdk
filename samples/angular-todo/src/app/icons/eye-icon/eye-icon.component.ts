@@ -15,6 +15,6 @@ import { Component, Input } from '@angular/core';
   templateUrl: './eye-icon.component.html',
 })
 export class EyeIconComponent {
-  @Input() visible: boolean = true;
-  @Input() size: string = '24px';
+  @Input() visible = true;
+  @Input() size = '24px';
 }

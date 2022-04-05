@@ -15,5 +15,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './forgerock-icon.component.html',
 })
 export class ForgerockIconComponent {
-  @Input() size: string = '24px';
+  @Input() size = '24px';
 }

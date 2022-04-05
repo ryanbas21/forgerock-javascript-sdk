@@ -62,7 +62,7 @@ export class FormComponent implements OnInit {
   /**
    * If the form is currently being submitted we want to display a spinner on the submit button
    */
-  submittingForm: boolean = false;
+  submittingForm = false;
 
   /**
    * The authentication tree or journey being specified in this authentication attempt
@@ -91,7 +91,7 @@ export class FormComponent implements OnInit {
        * Details: This calls the next method with the previous step, expecting
        * the next step to be returned, or a success or failure.
        ********************************************************************* */
-      let nextStep = await FRAuth.next(step, { tree: this.tree });
+      const nextStep = await FRAuth.next(step, { tree: this.tree });
 
       /** *******************************************************************
        * SDK INTEGRATION POINT
@@ -150,7 +150,7 @@ export class FormComponent implements OnInit {
        * valid access token. This is optional and only used for displaying
        * user info in the UI.
        ********************************************************************* */
-      let info = await UserManager.getCurrentUser();
+      const info = await UserManager.getCurrentUser();
       this.userService.info = info;
       this.userService.isAuthenticated = true;
 

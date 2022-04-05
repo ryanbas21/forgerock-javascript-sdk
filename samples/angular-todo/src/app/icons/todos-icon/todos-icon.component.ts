@@ -15,5 +15,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './todos-icon.component.html',
 })
 export class TodosIconComponent {
-  @Input() size: string = '24px';
+  @Input() size = '24px';
 }

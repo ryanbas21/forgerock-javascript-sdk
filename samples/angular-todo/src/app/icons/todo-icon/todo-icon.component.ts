@@ -15,6 +15,6 @@ import { Component, Input } from '@angular/core';
   templateUrl: './todo-icon.component.html',
 })
 export class TodoIconComponent {
-  @Input() size: string = '24px';
+  @Input() size = '24px';
   @Input() completed?: boolean = false;
 }

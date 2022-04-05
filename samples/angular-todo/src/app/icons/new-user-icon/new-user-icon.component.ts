@@ -15,5 +15,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './new-user-icon.component.html',
 })
 export class NewUserIconComponent {
-  @Input() size: string = '24px';
+  @Input() size = '24px';
 }

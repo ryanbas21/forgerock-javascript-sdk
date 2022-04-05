@@ -15,5 +15,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './home-icon.component.html',
 })
 export class HomeIconComponent {
-  @Input() size: string = '24px';
+  @Input() size = '24px';
 }

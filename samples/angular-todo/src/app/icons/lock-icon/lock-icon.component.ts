@@ -15,5 +15,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './lock-icon.component.html',
 })
 export class LockIconComponent {
-  @Input() size: string = '24px';
+  @Input() size = '24px';
 }

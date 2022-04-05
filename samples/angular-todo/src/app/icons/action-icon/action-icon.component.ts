@@ -15,5 +15,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './action-icon.component.html',
 })
 export class ActionIconComponent {
-  @Input() size: string = '24px';
+  @Input() size = '24px';
 }

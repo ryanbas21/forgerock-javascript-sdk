@@ -20,7 +20,7 @@ export class UserService {
   /**
    * State representing whether the user is authenticated or not
    */
-  isAuthenticated: boolean = false;
+  isAuthenticated = false;
 
   /**
    * State repreesnting previously retrieved user information

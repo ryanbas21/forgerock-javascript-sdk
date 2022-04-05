@@ -15,5 +15,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './alert-icon.component.html',
 })
 export class AlertIconComponent {
-  @Input() size: string = '24px';
+  @Input() size = '24px';
 }

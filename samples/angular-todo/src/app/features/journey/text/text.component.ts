@@ -44,7 +44,7 @@ export class TextComponent implements OnInit {
   /**
    * Is the text a required field in the form
    */
-  isRequired: boolean = false;
+  isRequired = false;
 
   /**
    * Validation error messages

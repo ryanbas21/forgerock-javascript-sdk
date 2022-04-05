@@ -15,5 +15,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './left-arrow-icon.component.html',
 })
 export class LeftArrowIconComponent {
-  @Input() size: string = '24px';
+  @Input() size = '24px';
 }

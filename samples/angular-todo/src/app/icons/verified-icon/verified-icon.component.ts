@@ -15,5 +15,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './verified-icon.component.html',
 })
 export class VerifiedIconComponent {
-  @Input() size: string = '24px';
+  @Input() size = '24px';
 }

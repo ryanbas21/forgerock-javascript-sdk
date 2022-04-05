@@ -37,12 +37,12 @@ export class PasswordComponent implements OnInit {
   /**
    * Is password to be shown in clear text
    */
-  isVisible: boolean = false;
+  isVisible = false;
 
   /**
    * Is the password a required field in the form
    */
-  isRequired: boolean = false;
+  isRequired = false;
 
   /**
    * Validation error messages
