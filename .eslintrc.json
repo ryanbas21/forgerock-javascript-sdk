@@ -4,10 +4,6 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "parserOptions": {
-        "project": ["samples/angular-todo/tsconfig.app.json"],
-        "createDefaultProgram": true
-      },
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
