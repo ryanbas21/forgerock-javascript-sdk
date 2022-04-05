@@ -42,6 +42,7 @@ samples/*/todos
 samples/*/users
 todos/
 users/
+!samples/angular-todo/*/todos
 
 # Environment files
 .env
@@ -49,4 +50,4 @@ users/
 .angular
 samples/**/.env.local
 samples/**/.env
-samples/angularjs-todo/.env.local
+samples/angular-todo/src/environments/environment.ts
