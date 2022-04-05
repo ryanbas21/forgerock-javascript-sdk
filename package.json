@@ -45,8 +45,6 @@
   },
   "homepage": "https://github.com/ForgeRock/forgerock-javascript-sdk#readme",
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.2.6",
-    "@angular-devkit/core": "^13.2.6",
     "@nrwl/angular": "^13.8.8",
     "@nrwl/cli": "13.8.8",
     "@nrwl/eslint-plugin-nx": "13.8.8",
@@ -57,7 +55,6 @@
     "@nrwl/node": "13.8.8",
     "@nrwl/nx-cloud": "13.1.6",
     "@nrwl/react": "13.8.8",
-    "@nrwl/schematics": "^8.12.11",
     "@nrwl/tao": "13.8.8",
     "@nrwl/web": "13.8.8",
     "@nrwl/workspace": "13.8.8",
@@ -93,9 +90,9 @@
     "webpack-cli": "^4.7.2"
   },
   "workspaces": [
-    "e2e/**",
-    "packages/**",
-    "samples/**"
+    "e2e/*",
+    "packages/*",
+    "samples/*"
   ],
   "dependencies": {
     "core-js": "^3.19.2",
