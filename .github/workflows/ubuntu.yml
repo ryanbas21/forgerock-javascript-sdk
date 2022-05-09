@@ -1,10 +1,11 @@
-name: ForgeRock Mac CI
+name: ForgeRock Ubuntu CI
 on:
+  pull_request_target:
+  pull_request:
   push:
     branches:
       - develop
       - master
-  pull_request_target:
 
 env:
   NX_CLOUD_DISTRIBUTED_EXECUTION: true
@@ -12,12 +13,12 @@ env:
 jobs:
   commit-check:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request_target' }}
+    if: ${{ github.event_name == 'pull_request' }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.13.1'
           cache: 'npm'
@@ -31,7 +32,7 @@ jobs:
           NODE_PATH: ${{ github.workspace }}/node_modules
   slack-pr:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request_target' }}
+    if: ${{ github.event_name == 'pull_request_target' && github.event.action == 'opened' }}
     steps:
       - name: Slack Notify
         id: slack
@@ -47,17 +48,17 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-  develop:
-    runs-on: macos-latest # if using act, you have to use ubuntu-latest
-    if: ${{ github.event_name != 'pull_request_target' }}
+  merge:
+    runs-on: ubuntu-latest # we run on ubuntu because some actions in this job do not work on mac
+    if: ${{ github.event_name != 'pull_request_target' && github.event_name != 'pull_request' }}
     steps:
-      - uses: actions/checkout@v2
-        name: Checkout [develop]
+      - uses: actions/checkout@v3
+        name: Checkout Merged Branch
         with:
           fetch-depth: 0
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.13.1'
           cache: 'npm'
@@ -67,7 +68,17 @@ jobs:
       - run: npx nx affected --target=build --parallel --max-parallel=3
       - run: npx nx affected --target=test --parallel --max-parallel=2
       - run: npx nx-cloud stop-all-agents
+      - name: Run Whitesource Action
+        uses: TheAxZim/Whitesource-Scan-Action@v1.0.0
+        with:
+          wssURL: https://saas.whitesourcesoftware.com/agent
+          apiKey: ${{ secrets.WSS_API_KEY }}
+          configFile: 'wss-unified-agent.config'
+        env:
+          WS_USERKEY: ${{ secrets.WS_USER_KEY }}
       - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODE_COV_UPLOAD_TOKEN }}
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         if: always()
@@ -78,76 +89,20 @@ jobs:
             ${{ env.GITHUB_WORKSPACE }}/e2e/**/test-results
             test-results
             ${{ env.GITHUB_WORKSPACE }}/test-results
-
-  pr:
-    runs-on: macos-latest
-    if: ${{ github.event_name == 'pull_request_target' }}
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
-          fetch-depth: 0
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.13.1'
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
-      - name: Setup custom host for sdkapp.example.com
-        run: sudo echo "127.0.0.1 sdkapp.example.com auth.example.com api.example.com user.example.com" | sudo tee -a /etc/hosts
-      - run: cat /etc/hosts
-      - uses: actions/labeler@v4
-        with:
-          repo-token: '${{ secrets.GITHUB_TOKEN }}'
-          sync-labels: true
-      - name: npm install
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
-        env:
-          DEBUG: pw:install
-          # PLAYWRIGHT_BROWSERS_PATH: 0
-          PLAYWRIGHT_SKIP_BROWSERS_DOWNLOAD: 1
-
-      - run: npx playwright install chromium firefox webkit
-
-      - run: npm install @nrwl/nx-cloud
-      - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v2
-        with:
-          main-branch-name: 'develop'
-
-      - run: npx nx-cloud start-ci-run
-      - run: npx nx affected --target=build --parallel --max-parallel=3
-      - run: npx nx affected --target=lint --parallel --max-parallel=3
-      - run: npx nx affected --target=test --parallel --max-parallel=2
-      - run: npx nx affected --target=test --configuration=integration --parallel --max-parallel=2
-      - run: npx nx affected --target=e2e  --parallel --max-parallel=2
-      - run: npx nx-cloud stop-all-agents
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: 'E2E Artifacts'
-          retention-days: 5
-          path: |
-            ${{ env.GITHUB_WORKSPACE }}/e2e/**/test-results
-            test-results
-            ${{ env.GITHUB_WORKSPACE }}/test-results
-
   agents:
-    runs-on: macos-latest
-    name: Agent Mac
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request_target' && github.event_name != 'pull_request' }}
+    name: Agent Ubuntu
     strategy:
       matrix:
         agent: [1, 2, 3]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{github.event.pull_request.head.repo.full_name}}
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.13.1'
           cache: 'npm'
