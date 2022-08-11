@@ -16,7 +16,6 @@ import Todos from './views/todos';
 import Footer from './components/layout/footer';
 import Header from './components/layout/header';
 import Home from './views/home';
-import Login from './views/login';
 import Logout from './views/logout';
 import Register from './views/register';
 
@@ -38,9 +37,6 @@ export default function Router() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
         <Route path="/register">
           <Register />
         </Route>

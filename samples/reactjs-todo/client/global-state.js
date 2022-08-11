@@ -8,11 +8,8 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-import { FRUser } from '@forgerock/javascript-sdk';
-import React, { useState } from 'react';
-
-import { DEBUGGER } from './constants';
-
+import React from 'react';
+import { useAuthorized, useUserInfo } from './hooks/user';
 /**
  * @function useStateMgmt - The global state/store for managing user authentication and page
  * @param {Object} props - The object representing React's props
@@ -22,63 +19,10 @@ import { DEBUGGER } from './constants';
  * @param {Object} props.username - User's username
  * @returns {Array} - Global state values and state methods
  */
-export function useGlobalStateMgmt({ email, isAuthenticated, prefersDarkTheme, username }) {
-  /**
-   * Create state properties for "global" state.
-   * Using internal names that differ from external to prevent shadowing.
-   * The destructing of the hook's array results in index 0 having the state value,
-   * and index 1 having the "setter" method to set new state values.
-   */
-  const [authenticated, setAuthentication] = useState(isAuthenticated || false);
-  const [mail, setEmail] = useState(email || '');
-  const [name, setUser] = useState(username || '');
-
+export function useGlobalStateMgmt({ prefersDarkTheme }) {
   let theme;
-
-  /**
-   * @function setAuthenticationWrapper - A wrapper for storing authentication in sessionStorage
-   * @param {boolean} value - current user authentication
-   * @returns {void}
-   */
-  async function setAuthenticationWrapper(value) {
-    if (value === false) {
-      /** *********************************************************************
-       * SDK INTEGRATION POINT
-       * Summary: Logout, end session and revoke tokens
-       * ----------------------------------------------------------------------
-       * Details: Since this method is a global method via the Context API,
-       * any part of the application can log a user out. This is helpful when
-       * APIs are called and we get a 401 response.
-       ********************************************************************* */
-      if (DEBUGGER) debugger;
-      try {
-        await FRUser.logout();
-      } catch (err) {
-        console.error(`Error: logout did not successfully complete; ${err}`);
-      }
-    }
-    setAuthentication(value);
-  }
-
-  /**
-   * @function setEmailWrapper - A wrapper for storing authentication in sessionStorage
-   * @param {string} value - current user's email
-   * @returns {void}
-   */
-  function setEmailWrapper(value) {
-    window.sessionStorage.setItem('sdk_email', `${value}`);
-    setEmail(value);
-  }
-
-  /**
-   * @function setUserWrapper - A wrapper for storing authentication in sessionStorage
-   * @param {string} value - current user's username
-   * @returns {void}
-   */
-  function setUserWrapper(value) {
-    window.sessionStorage.setItem('sdk_username', `${value}`);
-    setUser(value);
-  }
+  const [auth, setAuth] = useAuthorized();
+  const [info, setInfo] = useUserInfo();
 
   if (prefersDarkTheme) {
     theme = {
@@ -115,15 +59,13 @@ export function useGlobalStateMgmt({ email, isAuthenticated, prefersDarkTheme, u
    */
   return [
     {
-      isAuthenticated: authenticated,
-      email: mail,
+      auth,
+      info,
       theme,
-      username: name,
     },
     {
-      setAuthentication: setAuthenticationWrapper,
-      setEmail: setEmailWrapper,
-      setUser: setUserWrapper,
+      setInfo,
+      setAuth,
     },
   ];
 }

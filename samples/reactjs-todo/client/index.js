@@ -7,13 +7,13 @@
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
  */
-
-import { Config, TokenStorage } from '@forgerock/javascript-sdk';
+import { useEffect } from 'react';
+import Widget from 'forgerock-web-login-widget/modal';
+import { AM_URL, WEB_OAUTH_CLIENT } from './constants';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Router from './router';
-import { AM_URL, DEBUGGER, JOURNEY_LOGIN, REALM_PATH, WEB_OAUTH_CLIENT } from './constants';
 import { AppContext, useGlobalStateMgmt } from './global-state';
 
 /**
@@ -37,18 +37,7 @@ import './styles/index.scss';
  * - realmPath: this is the realm you are wanting to use within ForgeRock
  * - tree: The authentication journey/tree that you are wanting to use
  *************************************************************************** */
-if (DEBUGGER) debugger;
-Config.set({
-  clientId: WEB_OAUTH_CLIENT,
-  redirectUri: `${window.location.origin}/callback`,
-  scope: 'openid profile email',
-  serverConfig: {
-    baseUrl: AM_URL,
-    timeout: '5000',
-  },
-  realmPath: REALM_PATH,
-  tree: JOURNEY_LOGIN,
-});
+// if (DEBUGGER) debugger;
 
 /**
  * Initialize the React application
@@ -62,20 +51,12 @@ Config.set({
    * tokens. If we have them, you can cautiously assume the user is
    * authenticated.
    ************************************************************************* */
-  if (DEBUGGER) debugger;
-  let isAuthenticated;
-  try {
-    isAuthenticated = !!(await TokenStorage.get());
-  } catch (err) {
-    console.error(`Error: token retrieval for hydration; ${err}`);
-  }
+  // if (DEBUGGER) debugger;
 
   /**
    * Pull custom values from outside of the app to (re)hydrate state.
    */
   const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const email = window.sessionStorage.getItem('sdk_email');
-  const username = window.sessionStorage.getItem('sdk_username');
   const rootEl = document.getElementById('root');
 
   if (prefersDarkTheme) {
@@ -87,6 +68,26 @@ Config.set({
    * @returns {Object} - React component object
    */
   function Init() {
+    const modalEl = document.getElementById('modal');
+
+    useEffect(() => {
+      new Widget({
+        target: modalEl,
+        props: {
+          config: {
+            clientId: WEB_OAUTH_CLIENT,
+            redirectUri: `${window.location.origin}/callback`,
+            scope: 'openid profile email',
+            serverConfig: {
+              baseUrl: AM_URL,
+              timeout: '5000',
+            },
+            realmPath: 'alpha',
+            tree: 'Login',
+          },
+        },
+      });
+    }, [modalEl]);
     /**
      * This leverages "global state" with React's Context API.
      * This can be useful to share state with any component without
@@ -97,10 +98,7 @@ Config.set({
      * something like Redux might be a better option.
      */
     const stateMgmt = useGlobalStateMgmt({
-      email,
-      isAuthenticated,
       prefersDarkTheme,
-      username,
     });
 
     return (

@@ -8,8 +8,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-import { HttpClient } from '@forgerock/javascript-sdk';
-
+import { request } from 'forgerock-web-login-widget/modal';
 import { API_URL, DEBUGGER } from '../constants';
 
 /**
@@ -32,7 +31,7 @@ export default async function apiRequest(resource, method, data) {
      * fetch method.
      *********************************************************************** */
     if (DEBUGGER) debugger;
-    const response = await HttpClient.request({
+    const response = await request({
       url: `${API_URL}/${resource}`,
       init: {
         body: data && JSON.stringify(data),

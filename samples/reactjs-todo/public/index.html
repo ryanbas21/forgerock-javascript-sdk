@@ -87,7 +87,13 @@ of the MIT license. See the LICENSE file for details.
     />
 
     <title>ForgeRock: A Sample React (Web) Todo App</title>
-
+    <style>
+      @layer app;
+      @layer fr-widget.base;
+      @layer fr-widget.utilities;
+      @layer fr-widget.components;
+      @layer fr-widget.variants;
+    </style>
     <!-- <link href="app.css" rel="stylesheet" crossorigin="anonymous"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -100,6 +106,7 @@ of the MIT license. See the LICENSE file for details.
 
   <body>
     <div id="root" class="cstm_root"></div>
+    <div id="modal"></div>
 
     <!-- Import Bootstrap scripts -->
     <script

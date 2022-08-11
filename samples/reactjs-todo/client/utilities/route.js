@@ -7,12 +7,9 @@
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
  */
-
-import { UserManager } from '@forgerock/javascript-sdk';
 import React, { useContext, useEffect, useState } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-import { DEBUGGER } from '../constants';
 import Loading from '../components/utilities/loading';
 import { AppContext } from '../global-state';
 
@@ -22,14 +19,14 @@ import { AppContext } from '../global-state';
  * @param {function} setAuth - global state method for setting user authentication status
  * @returns {Array}
  */
-function useAuthValidation(auth, setAuth) {
+function useAuthValidation() {
   /**
    * React state "hook"
    *
    * This has three possible states: 'unknown', 'valid' and 'invalid'.
    */
   const [isValid, setValid] = useState('unknown');
-
+  const [{ auth }] = useContext(AppContext);
   useEffect(() => {
     async function validateAccessToken() {
       /**
@@ -39,29 +36,17 @@ function useAuthValidation(auth, setAuth) {
         /**
          * If we they have been authenticated, validate that assumption
          */
-        try {
-          /** *****************************************************************
-           * SDK INTEGRATION POINT
-           * Summary: Optional client-side route access validation
-           * ------------------------------------------------------------------
-           * Details: Here, you could just make sure tokens exist –
-           * TokenStorage.get() – or, validate tokens, renew expiry timers,
-           * session checks ... Below, we are calling the userinfo endpoint to
-           * ensure valid tokens before continuing, but it's optional.
-           ***************************************************************** */
-          if (DEBUGGER) debugger;
-          await UserManager.getCurrentUser();
-          setValid('valid');
-        } catch (err) {
-          console.info(`Info: route validation; ${err}`);
-
-          setAuth(false);
-          setValid('invalid');
-        }
+        /** *****************************************************************
+         * SDK INTEGRATION POINT
+         * Summary: Optional client-side route access validation
+         * ------------------------------------------------------------------
+         * Details: Here, you could just make sure tokens exist –
+         * TokenStorage.get() – or, validate tokens, renew expiry timers,
+         * session checks ... Below, we are calling the userinfo endpoint to
+         * ensure valid tokens before continuing, but it's optional.
+         ***************************************************************** */
+        setValid('valid');
       } else {
-        /**
-         * If we have no record of their authenticated, no need to call the server
-         */
         setValid('invalid');
       }
     }
@@ -71,11 +56,7 @@ function useAuthValidation(auth, setAuth) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth]);
 
-  return [
-    {
-      isValid,
-    },
-  ];
+  return isValid;
 }
 
 /**
@@ -88,11 +69,7 @@ function useAuthValidation(auth, setAuth) {
  * @returns {Object} - Wrapped React Router component
  */
 export function ProtectedRoute({ children, path }) {
-  // Get "global" state from Context API
-  const [{ isAuthenticated }, { setAuthentication }] = useContext(AppContext);
-  // Custom hook for validating user's access token
-  const [{ isValid }] = useAuthValidation(isAuthenticated, setAuthentication);
-
+  const isValid = useAuthValidation();
   return (
     <Route
       path={path}

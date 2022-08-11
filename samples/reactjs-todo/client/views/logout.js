@@ -7,11 +7,10 @@
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
  */
-
-import React, { useContext, useEffect } from 'react';
+import { user } from 'forgerock-web-login-widget/modal';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { AppContext } from '../global-state';
 import Loading from '../components/utilities/loading';
 
 /**
@@ -23,7 +22,6 @@ export default function Logout() {
    * The destructing of the hook's array results in index 0 having the state value,
    * and index 1 having the "setter" method to set new state values.
    */
-  const [_, { setAuthentication, setEmail, setUser }] = useContext(AppContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -34,10 +32,7 @@ export default function Logout() {
          * Note that the setAuthentication method below calls the FRUser.logout
          * method, ensuring the access artifacts are revoked on ForgeRock.
          */
-        setAuthentication(false);
-        setEmail('');
-        setUser('');
-
+        await user.logout();
         // Allow for enough time to communicate the action
         setTimeout(() => history.push('/?action=logout'), 1000);
       } catch (error) {

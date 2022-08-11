@@ -14,25 +14,32 @@ import { Link } from 'react-router-dom';
 import { AppContext } from '../global-state';
 import VerifiedIcon from '../components/icons/verified-icon';
 
+import { modal } from 'forgerock-web-login-widget/modal';
+
 /**
  * @function Home - React view for Home
  * @returns {Object} - React component object
  */
+
 export default function Home() {
+  const [state] = useContext(AppContext);
+
   /**
    * Collects the global state for detecting user auth for rendering
    * appropriate navigational items.
    * The destructing of the hook's array results in index 0 having the state value,
    * and index 1 having the "setter" method to set new state values.
    */
-  const [state] = useContext(AppContext);
 
   const createAccountText = !state.isAuthenticated ? (
     <Fragment>
       <h2 className={`fs-4 fw-normal pt-3 pb-1 ${state.theme.textClass}`}>Getting started</h2>
       <p>
         To use this app, <Link to="/register">create an account now</Link>! Already have an account?{' '}
-        <Link to="/login">Sign in</Link> to get things done!
+        <a href="javascript: void(0)" onClick={modal.open}>
+          Sign in
+        </a>{' '}
+        to get things done!
       </p>
     </Fragment>
   ) : null;
@@ -41,7 +48,7 @@ export default function Home() {
     <p className="alert alert-success d-flex align-items-center mt-5" role="alert">
       <VerifiedIcon classes="cstm_verified-alert-icon" size="36px" />
       <span className="ps-2">
-        Welcome back, {state.username}!{' '}
+        Welcome back, {state.name}!{' '}
         <Link className="cstm_verified-alert-link" to="/todos">
           Manage your todos here
         </Link>

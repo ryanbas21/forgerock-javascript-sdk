@@ -8,8 +8,10 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { modal, journey, user } from 'forgerock-web-login-widget/modal';
 
 import AccountIcon from '../icons/account-icon';
 import { AppContext } from '../../global-state';
@@ -23,22 +25,30 @@ import TodosIcon from '../icons/todos-icon';
  * @returns {Object} - React component object
  */
 export default function Header() {
+  const [{ auth, info, ...state }, { setAuth, setInfo }] = useContext(AppContext);
+  let history = useHistory();
+
+  useEffect(() => {
+    journey.onSuccess((res) => {
+      setAuth(true);
+      setInfo(res.user.response);
+      history.replace('/');
+    });
+  }, [history, setAuth, setInfo]);
   /**
    * Collects the global state for detecting user auth for rendering
    * appropriate navigational items.
    * The destructing of the hook's array results in index 0 having the state value,
    * and index 1 having the "setter" method to set new state values.
    */
-  const [state] = useContext(AppContext);
   const location = useLocation();
-
   let TodosItem;
   let LoginOrOutItem;
 
   /**
    * Render different navigational items depending on authenticated status
    */
-  if (state.isAuthenticated) {
+  if (auth) {
     TodosItem = [
       <li
         key="home"
@@ -88,15 +98,22 @@ export default function Header() {
                     state.theme.textClass ? state.theme.textClass : 'text-dark'
                   }`}
                 >
-                  {state.username}
+                  {info && info.name}
                 </p>
                 <p className="mb-2">{state.email}</p>
               </div>
             </li>
             <li>
-              <Link className="dropdown-item py-2" to="/logout">
+              <a
+                className="dropdown-item py-2"
+                onClick={async () => {
+                  await user.logout();
+                  setAuth(false);
+                  setInfo({});
+                }}
+              >
                 Sign Out
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
@@ -106,14 +123,15 @@ export default function Header() {
     TodosItem = null;
     LoginOrOutItem = (
       <div className="d-flex py-3">
-        <Link
+        <a
           className={`cstm_login-link py-2 px-3 mx-1 ${
             state.theme.mode === 'dark' ? 'cstm_login-link_dark' : ''
           }`}
-          to="/login"
+          href="javascript: void (0)"
+          onClick={modal.open}
         >
           Sign In
-        </Link>
+        </a>
         <Link className="btn btn-primary" to="/register">
           Sign Up
         </Link>
@@ -128,10 +146,8 @@ export default function Header() {
       <div className="cstm_container container-fluid d-flex align-items-stretch">
         <Link
           to="/"
-          className={`cstm_navbar-brand ${
-            state.isAuthenticated ? 'cstm_navbar-brand_auth' : ''
-          } navbar-brand ${
-            state.isAuthenticated ? 'd-none d-sm-none d-md-block' : ''
+          className={`cstm_navbar-brand ${auth ? 'cstm_navbar-brand_auth' : ''} navbar-brand ${
+            auth ? 'd-none d-sm-none d-md-block' : ''
           } py-3 pe-4 me-4 ${state.theme.borderHighContrastClass}`}
         >
           <ForgeRockIcon size="31px" /> + <ReactIcon size="38px" />

@@ -37,7 +37,6 @@ export async function auth(req, res, next) {
       body: {},
     };
   }
-
   if (response?.body?.active) {
     req.user = response.body;
     next();
